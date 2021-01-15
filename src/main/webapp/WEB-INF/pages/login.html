@@ -3,14 +3,23 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Login</title>
 </head>
 <body>
-<div>
-    <form method="post" action="/login">
-        <input name="j_username"/>
-        <input name="j_password"/>
-        <input type="submit"/>
+<div class="container">
+    <h2>Please sign in</h2>
+    <form role="form" class="form-horizontal col-md-4" method="post" action="/login">
+        <div class="form-group">
+            <input type="email" placeholder="Email address" class="form-control" name="j_username"/>
+        </div>
+        <div class="form-group">
+            <input type="password" placeholder="Password" class="form-control" name="j_password"/>
+        </div>
+        <button type="submit" class="btn btn-success">Sign in</button>
     </form>
 </div>
 </body>

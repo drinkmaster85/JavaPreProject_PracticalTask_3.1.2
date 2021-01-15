@@ -1,6 +1,7 @@
 package com.bro.spring_boot.service;
 
 import com.bro.spring_boot.dao.UserDao;
+import com.bro.spring_boot.entities.Role;
 import com.bro.spring_boot.entities.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -23,6 +24,11 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public List<User> getAllUsers() {
         return userDao.getAllUsers();
+    }
+
+    @Override
+    public List<Role> getAllRoles() {
+        return userDao.getAllRoles();
     }
 
     @Override

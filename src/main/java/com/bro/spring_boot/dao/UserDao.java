@@ -9,6 +9,8 @@ public interface UserDao {
 
     public List<User> getAllUsers();
 
+    public List<Role> getAllRoles();
+
     public void saveUser(User user);
 
     public void editUser(User user);

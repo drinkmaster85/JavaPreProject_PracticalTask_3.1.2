@@ -10,9 +10,8 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
+
 
 @Controller
 //@RequestMapping("/users")
@@ -24,17 +23,6 @@ public class UsersController {
         this.userService = userService;
     }
 
-//    security 2.4.2
-    @RequestMapping(value = "/hello", method = RequestMethod.GET)
-    public String printWelcome(ModelMap model) {
-        List<String> messages = new ArrayList<>();
-        messages.add("Hello!");
-        messages.add("I'm Spring MVC-SECURITY application");
-        messages.add("5.2.12 version by dec'20 ");
-        model.addAttribute("messages", messages);
-        return "hello";
-    }
-
     @GetMapping(value = "/login")
     public String loginPage() {
         return "login";
@@ -43,6 +31,7 @@ public class UsersController {
     @GetMapping("/user")
     public String getUserInfo(Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
         model.addAttribute("user", userService.getUserByName(auth.getName()));
 
         return "user/info";
@@ -50,13 +39,21 @@ public class UsersController {
 
     @GetMapping("/admin")
     public String getAllUsers(Model model) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
         model.addAttribute("users", userService.getAllUsers());
+        model.addAttribute("roles", userService.getAllRoles());
+        model.addAttribute("currentUser", userService.getUserByName(auth.getName()));
 
         return "admin/all";
     }
 
     @GetMapping("/admin/add")
-    public String newUser(@ModelAttribute("user") User user, @ModelAttribute("roles") HashSet<Role> roles) {
+    public String newUser(Model model) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+        model.addAttribute("currentUser", userService.getUserByName(auth.getName()));
+
         return "admin/add";
     }
 

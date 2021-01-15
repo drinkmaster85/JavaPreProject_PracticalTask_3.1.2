@@ -1,5 +1,6 @@
 package com.bro.spring_boot.service;
 
+import com.bro.spring_boot.entities.Role;
 import com.bro.spring_boot.entities.User;
 
 import java.util.List;
@@ -7,6 +8,8 @@ import java.util.List;
 public interface UserService {
 
     public List<User> getAllUsers();
+
+    public List<Role> getAllRoles();
 
     public void saveUser(User user);
 

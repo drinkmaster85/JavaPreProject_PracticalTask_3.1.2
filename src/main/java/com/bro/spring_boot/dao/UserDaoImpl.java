@@ -24,6 +24,14 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
+    public List<Role> getAllRoles() {
+
+        List<Role> roles = entityManager.createQuery("from Role", Role.class).getResultList();
+
+        return roles;
+    }
+
+    @Override
     @Transactional
     public void saveUser(User user) {
         entityManager.persist(user);

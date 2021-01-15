@@ -1,44 +1,93 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>New user</title>
 </head>
 <body>
+<!--панель инфо юзера + логаут-->
+<div th:insert="fragments/header::header(${currentUser})"></div>
 
-<form th:method="post" th:action="@{/admin/add}" th:object="${user}">
-    <label>Name: </label>
-    <input type="text" th:field="*{name}" id="name"/>
-    <br><br>
-    <label>Surname: </label>
-    <input type="text" th:field="*{surname}" id="surname"/>
-    <br><br>
-    <label>Department: </label>
-    <input type="text" th:field="*{department}" id="department"/>
-    <br><br>
-    <label>Salary: </label>
-    <input type="text" th:field="*{salary}" id="salary"/>
-    <br><br>
-    <label>Password: </label>
-    <input type="text" th:field="*{password}" id="password"/>
-    <br><br>
-    <label>Roles: </label>
-    <select th:field="*{roles}" id="roles" name="roles" multiple>
-        <option th:value="ROLE_ADMIN"
-            th:text="ADMIN">
-        </option>
-        <option th:value="ROLE_USER"
-            th:text="USER">
-        </option>
-    </select>
-    <br><br>
-    <input type="submit" value="Add"/>
-</form>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2">
+            <div class="nav flex-column nav-pills">
+                <a class="nav-link active" href="/admin">Admin</a>
+                <a class="nav-link" href="/user">User</a>
+            </div>
+        </div>
 
-<br>
-<form th:action="@{/logout}" method="post">
-    <button type="submit">Sign Out</button>
-</form>
+        <div class="col-md-10">
+            <h3>Admin panel</h3>
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin">User table</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="/admin/add">New user</a>
+                </li>
+            </ul>
 
+            <div class="card">
+                <h4 class="card-header">Add new user</h4>
+                <div class="card-body">
+                    <form action="/admin/add" method="POST" th:object="${user}">
+                        <div class="row justify-content-center">
+                            <div class="form-group col-md-4">
+                                <p class="text-center font-weight-bold mb-md-0">Name</p>
+                                <input type="text" class="form-control" name="name" id="name"
+                                       placeholder="Name" required>
+                            </div>
+                        </div>
+                        <div class="row justify-content-center">
+                            <div class="form-group col-md-4">
+                                <p class="text-center font-weight-bold mb-md-0">Surname</p>
+                                <input type="text" class="form-control" name="surname" id="surname"
+                                       placeholder="Surname" required>
+                            </div>
+                        </div>
+                        <div class="row justify-content-center">
+                            <div class="form-group col-md-4">
+                                <p class="text-center font-weight-bold mb-md-0">Department</p>
+                                <input type="text" class="form-control" name="department" id="department"
+                                       placeholder="Department" required>
+                            </div>
+                        </div>
+                        <div class="row justify-content-center">
+                            <div class="form-group col-md-4">
+                                <p class="text-center font-weight-bold mb-md-0">Salary</p>
+                                <input type="text" class="form-control" name="salary" id="salary"
+                                       placeholder="Salary" required>
+                            </div>
+                        </div>
+                        <div class="row justify-content-center">
+                            <div class="form-group col-md-4">
+                                <p class="text-center font-weight-bold mb-md-0">Password</p>
+                                <input type="text" class="form-control" name="password" id="password"
+                                       placeholder="Password" required>
+                            </div>
+                        </div>
+                        <div class="row justify-content-center">
+                            <div class="form-group col-md-4">
+                                <p class="text-center font-weight-bold mb-md-0">Roles</p>
+                                <select name="roles" class="form-control" id="roles" multiple required>
+                                    <option value="ROLE_ADMIN">ADMIN</option>
+                                    <option value="ROLE_USER">USER</option>
+                                </select>
+                            </div>
+                        </div>
+                        <form action="admin/add">
+                            <button class="btn btn-success">Add new user</button>
+                        </form>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>
