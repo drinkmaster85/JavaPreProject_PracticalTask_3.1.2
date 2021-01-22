@@ -25,7 +25,7 @@ public class User implements UserDetails{
     private int salary;
 
     private String password;
-    //2.4.2
+
     @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     @JoinTable(
             name = "users_roles",
@@ -83,7 +83,7 @@ public class User implements UserDetails{
     public void setSalary(int salary) {
         this.salary = salary;
     }
-    //2.4.2//
+
     public void setPassword(String password) {
         this.password = password;
     }
@@ -98,7 +98,7 @@ public class User implements UserDetails{
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return roles;
     }
 
     @Override

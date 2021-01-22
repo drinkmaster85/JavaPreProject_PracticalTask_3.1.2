@@ -1,13 +1,11 @@
 package com.bro.spring_boot.controllers;
 
-import com.bro.spring_boot.entities.Role;
 import com.bro.spring_boot.entities.User;
 import com.bro.spring_boot.service.UserService;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashSet;
@@ -52,6 +50,7 @@ public class UsersController {
     public String newUser(Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
+        model.addAttribute("roles", userService.getAllRoles());
         model.addAttribute("currentUser", userService.getUserByName(auth.getName()));
 
         return "admin/add";
@@ -67,6 +66,7 @@ public class UsersController {
     @GetMapping("/admin/edit/{id}")
     public String showUser(@PathVariable("id") int id, Model model) {
         model.addAttribute("user", userService.getUser(id));
+        model.addAttribute("roles", userService.getAllRoles());
 
         return "admin/edit";
     }

@@ -74,9 +74,11 @@
                         <div class="row justify-content-center">
                             <div class="form-group col-md-4">
                                 <p class="text-center font-weight-bold mb-md-0">Roles</p>
-                                <select name="roles" class="form-control" id="roles" multiple required>
-                                    <option value="ROLE_ADMIN">ADMIN</option>
-                                    <option value="ROLE_USER">USER</option>
+                                <select name="roles" class="form-control" id="roles" multiple required>>
+                                    <option th:each="role : ${roles}"
+                                            th:value="${role}"
+                                            th:text="${role}">
+                                    </option>
                                 </select>
                             </div>
                         </div>

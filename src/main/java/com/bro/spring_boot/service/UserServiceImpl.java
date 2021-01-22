@@ -6,8 +6,9 @@ import com.bro.spring_boot.entities.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-//import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -32,16 +33,18 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-//    @Transactional
+    @Transactional
     public void saveUser(User user) {
         setUserRoles(user);
+        user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
         userDao.saveUser(user);
     }
 
     @Override
-//    @Transactional
+    @Transactional
     public void editUser(User user) {
         setUserRoles(user);
+        user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
         userDao.editUser(user);
     }
 
@@ -56,12 +59,12 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-//    @Transactional
+    @Transactional
     public void deleteUser(int id) {
         userDao.deleteUser(id);
     }
 
-//    @Transactional
+    @Transactional
     public void setUserRoles(User user) {
         user.setRoles(user
                 .getRoles()
@@ -72,10 +75,10 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+//        User user = userDao.getUserByName(username);
+//        return new org.springframework.security.core.userdetails.User(
+//                user.getUsername(), user.getPassword(), user.getRoles());
 
-        User user = userDao.getUserByName(username);
-
-        return new org.springframework.security.core.userdetails.User(
-                user.getUsername(), user.getPassword(), user.getRoles());
+        return userDao.getUserByName(username);
     }
 }
